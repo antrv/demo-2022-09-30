@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:ClockApp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ClockApp.Views.MainView"
+             Foreground="White"
+             Background="#171C2C">
+    
+    <Design.DataContext>
+        <viewModels:MainViewModel />
+    </Design.DataContext>
+
+    <UserControl.Styles>
+        <Style Selector="Label">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </UserControl.Styles>
+
+    <UserControl.Resources>
+        <viewModels:TimeToAngleConverter x:Key="TimeToAngleConverter" />
+    </UserControl.Resources>
+    
+    <Viewbox Stretch="Uniform">
+        <Canvas Width="600" Height="600">
+            <!-- Center circle -->
+            <Ellipse Fill="Gray" Width="4" Height="4" Canvas.Left="298" Canvas.Top="298" />
+
+            <!-- Seconds arrow -->
+            <Line Stroke="Red" StrokeThickness="2" StartPoint="300,300" EndPoint="300,50">
+                <Line.RenderTransform>
+                    <RotateTransform Angle="{Binding CurrentTime, Converter={StaticResource TimeToAngleConverter}, ConverterParameter=s}" CenterX="150" CenterY="150" />
+                </Line.RenderTransform>
+            </Line>
+
+            <!-- Minutes arrow -->
+            <Line Stroke="Gray" StrokeThickness="4" StartPoint="300,300" EndPoint="300,100">
+                <Line.RenderTransform>
+                    <RotateTransform Angle="{Binding CurrentTime, Converter={StaticResource TimeToAngleConverter}, ConverterParameter=m}" CenterX="150" CenterY="150" />
+                </Line.RenderTransform>
+            </Line>
+
+            <!-- Hours arrow -->
+            <Line Stroke="Gray" StrokeThickness="6" StartPoint="300,300" EndPoint="300,150">
+                <Line.RenderTransform>
+                    <RotateTransform Angle="{Binding CurrentTime, Converter={StaticResource TimeToAngleConverter}, ConverterParameter=h}" CenterX="150" CenterY="150" />
+                </Line.RenderTransform>
+            </Line>
+            
+            <Label Canvas.Left="440" Canvas.Top="50">1</Label>
+            <Label Canvas.Left="540" Canvas.Top="140">2</Label>
+            <Label Canvas.Left="570" Canvas.Top="290">3</Label>
+            <Label Canvas.Left="540" Canvas.Top="440">4</Label>
+            <Label Canvas.Left="440" Canvas.Top="540">5</Label>
+            <Label Canvas.Left="290" Canvas.Top="570">6</Label>
+            <Label Canvas.Left="140" Canvas.Top="540">7</Label>
+            <Label Canvas.Left="40" Canvas.Top="440">8</Label>
+            <Label Canvas.Left="10" Canvas.Top="290">9</Label>
+            <Label Canvas.Left="40" Canvas.Top="140">10</Label>
+            <Label Canvas.Left="140" Canvas.Top="50">11</Label>
+            <Label Canvas.Left="290" Canvas.Top="10">12</Label>
+
+            <Label Canvas.Left="470" Canvas.Top="560" FontSize="24" Foreground="Orange" 
+                   Content="{Binding CurrentTime, StringFormat=\{0:T\}}" />
+            
+        </Canvas>
+    </Viewbox>
+    
+</UserControl>

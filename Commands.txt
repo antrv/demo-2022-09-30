@@ -1,0 +1,13 @@
+﻿dotnet --info
+
+dotnet workload list
+dotnet workload install wasm-tools android
+
+dotnet new --list
+
+dotnet new -i Avalonia.Templates
+
+dotnet new avalonia.xplat -n ClockApp
+
+dotnet publish -c Release -r linux-x64 --self-contained
+
